@@ -5,6 +5,14 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+// Middleware
+app.use(express.json());
+// const logger = (req, res, next) => {
+//   console.log("Middleware ran");
+//   console.log(req.method);
+//   next();
+// };
+
 // Routes
 app.get("/", (req, res) => {
   res.send("Home page");
@@ -21,7 +29,7 @@ const PORT = process.env.PORT || 5000;
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log(`MongoDB Connected`);
+    // console.log(`MongoDB Connected`);
     app.listen(PORT, () => {
       console.log(
         `Le serveur est en cours d'exécution sur http://localhost:${PORT}`
