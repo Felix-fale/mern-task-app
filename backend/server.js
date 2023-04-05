@@ -10,6 +10,12 @@ app.get("/", (req, res) => {
   res.send("Home page");
 });
 
+// Create a Task
+app.post("/api/tasks", async (req, res) => {
+  console.log(req.body);
+  res.send("Task created");
+});
+
 const PORT = process.env.PORT || 5000;
 
 mongoose
