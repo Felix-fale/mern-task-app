@@ -23,5 +23,3 @@ mongoose
     });
   })
   .catch((err) => console.log(err));
-
-// .then() joue le même role que try() ?
