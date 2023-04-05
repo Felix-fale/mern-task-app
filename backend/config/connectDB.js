@@ -13,3 +13,19 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+
+// Use this function in server.js to connect to mongoDB and start the server
+
+// const startServer = async () => {
+//   try {
+//     await connectDB();
+//     app.listen(PORT, () => {
+//       console.log(
+//         `Le serveur est en cours d'exécution sur http://localhost:${PORT}`
+//       );
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// startServer();
