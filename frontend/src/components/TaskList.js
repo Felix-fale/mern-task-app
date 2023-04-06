@@ -65,12 +65,12 @@ function TaskList(props) {
     }
   };
 
-  // useEffect(() => {
-  //   const cTask = tasks.filter((task) => {
-  //     return task.completed === true;
-  //   });
-  //   setCompletedTasks(cTask);
-  // }, [tasks]);
+  useEffect(() => {
+    const completedTask = tasks.filter((task) => {
+      return task.completed === true;
+    });
+    setCompletedTasks(completedTask);
+  }, [tasks]);
 
   const getSingleTask = async (task) => {
     setFormData({ name: task.name, completed: false });
@@ -116,14 +116,17 @@ function TaskList(props) {
         isEditing={isEditing}
         updateTask={updateTask}
       />
-      <div className="--flex-between --pb">
-        <p>
-          <b>Total Task:</b> 0
-        </p>
-        <p>
-          <b>Completed Task:</b> 0
-        </p>
-      </div>
+      {tasks.length > 0 && (
+        <div className="--flex-between --pb">
+          <p>
+            <b>Total Task:</b> {tasks.length}
+          </p>
+          <p>
+            <b>Completed Task: {completedTasks.length}</b>
+          </p>
+        </div>
+      )}
+
       <hr />
       {isLoading && (
         <div className="--flex-center">
