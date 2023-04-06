@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TaskForm from "./TaskForm";
 import Task from "./Task";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { URL } from "../App";
+import loadingImg from "../assets/loader.gif";
 
 function TaskList(props) {
+  const [tasks, setTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     completed: false,
@@ -17,21 +22,21 @@ function TaskList(props) {
     setFormData({ ...formData, [name]: value });
   };
 
-  //   const getTasks = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const { data } = await axios.get(`${URL}/api/tasks`);
-  //       setTasks(data);
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //       setIsLoading(false);
-  //     }
-  //   };
+  const getTasks = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await axios.get(`${URL}/api/tasks`);
+      setTasks(data);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error.message);
+      setIsLoading(false);
+    }
+  };
 
-  //   useEffect(() => {
-  //     getTasks();
-  //   }, []);
+  useEffect(() => {
+    getTasks();
+  }, []);
 
   const createTask = async (e) => {
     e.preventDefault();
@@ -116,7 +121,20 @@ function TaskList(props) {
         </p>
       </div>
       <hr />
-      <Task />
+      {isLoading && (
+        <div className="--flex-center">
+          <img src={loadingImg} alt="loading" />
+        </div>
+      )}
+      {!isLoading && tasks.length === 0 ? (
+        <p className="--py">No task added. please add a task</p>
+      ) : (
+        <>
+          {tasks.map((task, index) => {
+            return <Task />;
+          })}
+        </>
+      )}
     </div>
   );
 }
