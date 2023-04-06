@@ -131,7 +131,7 @@ function TaskList(props) {
       ) : (
         <>
           {tasks.map((task, index) => {
-            return <Task />;
+            return <Task key={task._id} task={task} index={index} />;
           })}
         </>
       )}
