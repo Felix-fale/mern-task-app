@@ -79,18 +79,18 @@ function TaskList(props) {
   };
 
   const updateTask = async (e) => {
-    //     e.preventDefault();
-    //     if (name === "") {
-    //       return toast.error("Input field cannot be empty.");
-    //     }
-    //     try {
-    //       await axios.put(`${URL}/api/tasks/${taskID}`, formData);
-    //       setFormData({ ...formData, name: "" });
-    //       setIsEditing(false);
-    //       getTasks();
-    //     } catch (error) {
-    //       toast.error(error.message);
-    //     }
+    e.preventDefault();
+    if (name === "") {
+      return toast.error("Input field cannot be empty.");
+    }
+    try {
+      await axios.put(`${URL}/api/tasks/${taskID}`, formData);
+      setFormData({ ...formData, name: "" });
+      setIsEditing(false);
+      getTasks();
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   //   const setToComplete = async (task) => {
