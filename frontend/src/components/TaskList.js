@@ -93,18 +93,18 @@ function TaskList(props) {
     }
   };
 
-  //   const setToComplete = async (task) => {
-  //     const newFormData = {
-  //       name: task.name,
-  //       completed: true,
-  //     };
-  //     try {
-  //       await axios.put(`${URL}/api/tasks/${task._id}`, newFormData);
-  //       getTasks();
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //     }
-  //   };
+  const setToComplete = async (task) => {
+    const newFormData = {
+      name: task.name,
+      completed: true,
+    };
+    try {
+      await axios.put(`${URL}/api/tasks/${task._id}`, newFormData);
+      getTasks();
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div>
@@ -142,6 +142,7 @@ function TaskList(props) {
                 index={index}
                 deleteTask={deleteTask}
                 getSingleTask={getSingleTask}
+                setToComplete={setToComplete}
               />
             );
           })}
