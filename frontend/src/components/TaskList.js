@@ -10,6 +10,8 @@ function TaskList(props) {
   const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [taskID, setTaskID] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -47,7 +49,7 @@ function TaskList(props) {
       await axios.post(`${URL}/api/tasks`, formData);
       toast.success("Task added successfully");
       setFormData({ ...formData, name: "" });
-      //   getTasks();
+      getTasks();
     } catch (error) {
       toast.error(error.message);
       console.log(error);
@@ -70,26 +72,26 @@ function TaskList(props) {
   //   setCompletedTasks(cTask);
   // }, [tasks]);
 
-  //   const getSingleTask = async (task) => {
-  //     setFormData({ name: task.name, completed: false });
-  //     setTaskID(task._id);
-  //     setIsEditing(true);
-  //   };
+  const getSingleTask = async (task) => {
+    setFormData({ name: task.name, completed: false });
+    setTaskID(task._id);
+    setIsEditing(true);
+  };
 
-  //   const updateTask = async (e) => {
-  //     e.preventDefault();
-  //     if (name === "") {
-  //       return toast.error("Input field cannot be empty.");
-  //     }
-  //     try {
-  //       await axios.put(`${URL}/api/tasks/${taskID}`, formData);
-  //       setFormData({ ...formData, name: "" });
-  //       setIsEditing(false);
-  //       getTasks();
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //     }
-  //   };
+  const updateTask = async (e) => {
+    //     e.preventDefault();
+    //     if (name === "") {
+    //       return toast.error("Input field cannot be empty.");
+    //     }
+    //     try {
+    //       await axios.put(`${URL}/api/tasks/${taskID}`, formData);
+    //       setFormData({ ...formData, name: "" });
+    //       setIsEditing(false);
+    //       getTasks();
+    //     } catch (error) {
+    //       toast.error(error.message);
+    //     }
+  };
 
   //   const setToComplete = async (task) => {
   //     const newFormData = {
@@ -111,6 +113,8 @@ function TaskList(props) {
         name={name}
         handleInputChange={handleInputChange}
         createTask={createTask}
+        isEditing={isEditing}
+        updateTask={updateTask}
       />
       <div className="--flex-between --pb">
         <p>
@@ -137,6 +141,7 @@ function TaskList(props) {
                 task={task}
                 index={index}
                 deleteTask={deleteTask}
+                getSingleTask={getSingleTask}
               />
             );
           })}
