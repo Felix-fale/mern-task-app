@@ -54,21 +54,21 @@ function TaskList(props) {
     }
   };
 
-  //   const deleteTask = async (id) => {
-  //     try {
-  //       await axios.delete(`${URL}/api/tasks/${id}`);
-  //       getTasks();
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //     }
-  //   };
+  const deleteTask = async (id) => {
+    try {
+      await axios.delete(`${URL}/api/tasks/${id}`);
+      getTasks();
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
-  //   useEffect(() => {
-  //     const cTask = tasks.filter((task) => {
-  //       return task.completed === true;
-  //     });
-  //     setCompletedTasks(cTask);
-  //   }, [tasks]);
+  // useEffect(() => {
+  //   const cTask = tasks.filter((task) => {
+  //     return task.completed === true;
+  //   });
+  //   setCompletedTasks(cTask);
+  // }, [tasks]);
 
   //   const getSingleTask = async (task) => {
   //     setFormData({ name: task.name, completed: false });
@@ -131,7 +131,14 @@ function TaskList(props) {
       ) : (
         <>
           {tasks.map((task, index) => {
-            return <Task key={task._id} task={task} index={index} />;
+            return (
+              <Task
+                key={task._id}
+                task={task}
+                index={index}
+                deleteTask={deleteTask}
+              />
+            );
           })}
         </>
       )}
