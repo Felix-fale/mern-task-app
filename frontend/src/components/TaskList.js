@@ -96,7 +96,7 @@ function TaskList(props) {
   const setToComplete = async (task) => {
     const newFormData = {
       name: task.name,
-      completed: true,
+      completed: !task.completed,
     };
     try {
       await axios.put(`${URL}/api/tasks/${task._id}`, newFormData);
