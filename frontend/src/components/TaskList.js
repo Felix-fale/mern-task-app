@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TaskForm from "./TaskForm";
 import Task from "./Task";
+import axios from "axios";
 import { toast } from "react-toastify";
 
 function TaskList(props) {
@@ -31,21 +32,21 @@ function TaskList(props) {
   //     getTasks();
   //   }, []);
 
-  //   const createTask = async (e) => {
-  //     e.preventDefault();
-  //     if (name === "") {
-  //       return toast.error("Input field cannot be empty");
-  //     }
-  //     try {
-  //       await axios.post(`${URL}/api/tasks`, formData);
-  //       toast.success("Task added successfully");
-  //       setFormData({ ...formData, name: "" });
-  //       getTasks();
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //       console.log(error);
-  //     }
-  //   };
+  const createTask = async (e) => {
+    e.preventDefault();
+    if (name === "") {
+      return toast.error("Input field cannot be empty");
+    }
+    try {
+      await axios.post(`http://localhost:5000/api/tasks`, formData);
+      toast.success("Task added successfully");
+      setFormData({ ...formData, name: "" });
+      //   getTasks();
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error);
+    }
+  };
 
   //   const deleteTask = async (id) => {
   //     try {
@@ -100,7 +101,11 @@ function TaskList(props) {
   return (
     <div>
       <h2>Task Manager</h2>
-      <TaskForm />
+      <TaskForm
+        name={name}
+        handleInputChange={handleInputChange}
+        createTask={createTask}
+      />
       <div className="--flex-between --pb">
         <p>
           <b>Total Task:</b> 0
